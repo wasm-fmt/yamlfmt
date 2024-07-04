@@ -52,3 +52,8 @@ import init, { format } from "@wasm-fmt/yamlfmt/vite";
 ```
 
 </details>
+
+# Credits
+
+Thanks to: 
+- [pretty_yaml](https://github.com/g-plane/pretty_yaml)
