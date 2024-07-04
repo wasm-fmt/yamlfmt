@@ -68,6 +68,8 @@ jobs:
           path: pkg
 
       - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
       - run: node --test
 
   deno-test:
