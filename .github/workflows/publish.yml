@@ -44,7 +44,6 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version-file: ".node-version"
           registry-url: "https://registry.npmjs.org"
 
       - name: Publish
@@ -68,7 +67,6 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version-file: ".node-version"
           registry-url: "https://npm.pkg.github.com"
 
       - name: Publish
@@ -87,8 +85,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with:
-          node-version-file: ".node-version"
 
       - uses: actions/download-artifact@v4
         with:
@@ -116,7 +112,7 @@ jobs:
         run: npm pack
 
       - name: Release
-        uses: softprops/action-gh-release@69320dbe05506a9a39fc8ae11030b214ec2d1f87
+        uses: softprops/action-gh-release@v2
         with:
           files: |
             pkg/*.tgz
