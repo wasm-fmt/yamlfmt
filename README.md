@@ -2,13 +2,13 @@
 
 # Install
 
-[![npm](https://img.shields.io/npm/v/@wasm-fmt/yamlfmt?color=e38c00)](https://www.npmjs.com/package/@wasm-fmt/yamlfmt)
+[![npm](https://img.shields.io/npm/v/@wasm-fmt/yamlfmt?color=cb171e)](https://www.npmjs.com/package/@wasm-fmt/yamlfmt)
 
 ```bash
 npm install @wasm-fmt/yamlfmt
 ```
 
-[![jsr.io](https://jsr.io/badges/@fmt/yamlfmt?color=e38c00)](https://jsr.io/@fmt/yamlfmt)
+[![jsr.io](https://jsr.io/badges/@fmt/yamlfmt?color=cb171e)](https://jsr.io/@fmt/yamlfmt)
 
 ```bash
 npx jsr add @fmt/yamlfmt
