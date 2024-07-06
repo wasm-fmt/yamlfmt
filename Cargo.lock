@@ -27,25 +27,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7704b5fdd17b18ae31c4c1da5a2e0305a2bf17b5249300a9ee9ed7b72114c636"
 
 [[package]]
-name = "either"
-version = "1.13.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "60b1af1c220855b6ceac025d3f6ecdd2b7c4894bfe9cd9bda4fbb4bc7c0d4cf0"
-
-[[package]]
 name = "hashbrown"
 version = "0.14.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e5274423e17b7c9fc20b6e7e208532f9b19825d82dfd615708b70edd83df41f1"
-
-[[package]]
-name = "itertools"
-version = "0.12.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ba291022dbbd398a455acf126c1e341954079855bc60dfdda641363bd6922569"
-dependencies = [
- "either",
-]
 
 [[package]]
 name = "itoa"
@@ -91,11 +76,10 @@ checksum = "3fdb12b2476b595f9358c5161aa467c2438859caa136dec86c26fdd2efe17b92"
 
 [[package]]
 name = "pretty_yaml"
-version = "0.1.0"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b69b9446befbd56757292d50d3c9d8e241e39dd279b6cc7f5cb87133b3818fc1"
+checksum = "03c97d7a59a9fc9d1e4a260cef245be2e212723d12c591c2d774f6541b758b9d"
 dependencies = [
- "itertools",
  "rowan",
  "serde",
  "tiny_pretty",
@@ -281,9 +265,9 @@ dependencies = [
 
 [[package]]
 name = "yaml_parser"
-version = "0.1.0"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fd38b6b7d2cbc56a792f833ff076cf8c92bb7d9b71268e368f2e43b37eacd534"
+checksum = "d3f4e11d978ad82d7754b3cfd4d8b9d8014b38c58dae7fa6494e46d8ea3ff5fb"
 dependencies = [
  "rowan",
  "winnow",
