@@ -13,5 +13,4 @@ complex4:
   :
 complex5:
   ? - a
-  :
-    - b
+  : - b
