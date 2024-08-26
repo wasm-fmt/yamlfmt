@@ -28,7 +28,6 @@ pub fn format(input: &str, _filename: &str, config: Option<Config>) -> Result<St
 #[wasm_bindgen(typescript_custom_section)]
 const TS_Config: &'static str = r#"
 interface LayoutConfig {
-	indent_style?: "tab" | "space";
 	indent_width?: number;
 	line_width?: number;
 	line_ending?: "lf" | "crlf";
@@ -51,23 +50,12 @@ extern "C" {
 
 #[derive(Deserialize, Clone, Default)]
 pub struct LayoutConfig {
-    #[serde(alias = "indentStyle")]
-    indent_style: Option<IndentStyle>,
     #[serde(alias = "indentWidth")]
     indent_width: Option<usize>,
     #[serde(alias = "lineWidth")]
     line_width: Option<usize>,
     #[serde(alias = "lineEnding")]
     line_ending: Option<LineEnding>,
-}
-
-#[derive(Deserialize)]
-#[serde(rename_all = "snake_case")]
-#[derive(Clone, Copy, Default)]
-enum IndentStyle {
-    Tab,
-    #[default]
-    Space,
 }
 
 #[derive(Deserialize)]
@@ -85,10 +73,6 @@ impl From<LayoutConfig> for config::LayoutOptions {
 
         if let Some(line_width) = value.line_width {
             layout.print_width = line_width;
-        }
-
-        if let Some(indent_style) = value.indent_style {
-            layout.use_tabs = matches!(indent_style, IndentStyle::Tab);
         }
 
         if let Some(indent_width) = value.indent_width {
