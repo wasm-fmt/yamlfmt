@@ -3,13 +3,20 @@ authors     = ["magic-akari <akari.ccino@gmail.com>"]
 description = "A WASM Based YAML Formatter"
 name        = "yamlfmt"
 
-edition    = "2021"
+edition    = "2024"
 homepage   = "https://github.com/wasm-fmt/yamlfmt"
 keywords   = ["wasm", "yaml", "formatter"]
 license    = "MIT"
 readme     = "README.md"
 repository = "https://github.com/wasm-fmt/yamlfmt"
 version    = "0.0.3"
+
+    [package.metadata.wasm-pack.profile.release]
+    wasm-opt = [
+        "-Os",
+        "--enable-bulk-memory",
+        "--enable-nontrapping-float-to-int",
+    ]
 
 [dependencies]
 pretty_yaml = { version = "0.5", features = ["config_serde"] }
