@@ -70,7 +70,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ">=22.6.0"
-      - run: node --test
+      - run: node --test "test_node/*.mjs"
 
   deno-test:
     runs-on: ubuntu-latest
