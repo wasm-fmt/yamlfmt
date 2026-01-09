@@ -19,7 +19,7 @@ version    = "0.1.2"
     ]
 
 [dependencies]
-pretty_yaml = { version = "0.5", features = ["config_serde"] }
+pretty_yaml = { version = "0.6", features = ["config_serde"] }
 
 serde              = "1.0"
 serde-wasm-bindgen = "0.6"
