@@ -10,7 +10,7 @@
 	"excludes": [
 		"**/*-lock.json",
 		"**/node_modules",
-		"test_data",
+		"tests",
 		"pkg"
 	],
 	"plugins": [
