@@ -29,7 +29,7 @@ wasm-bindgen       = "0.2"
 [dev-dependencies]
 insta           = { version = "1.43", features = ["glob"] }
 similar-asserts = "1.5"
-toml            = "0.8"
+toml            = "0.9"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
