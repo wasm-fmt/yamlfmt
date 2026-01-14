@@ -1,35 +1,26 @@
-import init, { format } from "../pkg/yamlfmt.js";
+#!/usr/bin/env deno test --allow-read --parallel
+import { assertEquals } from "jsr:@std/assert";
+import { expandGlob } from "jsr:@std/fs";
+import { fromFileUrl, relative } from "jsr:@std/path";
 
-import { assertEquals } from "https://deno.land/std@0.217.0/assert/mod.ts";
-import { walk } from "https://deno.land/std@0.217.0/fs/walk.ts";
-import { relative } from "https://deno.land/std@0.217.0/path/mod.ts";
+import { format } from "../pkg/yamlfmt_esm.js";
 
-await init();
+const specs_root = fromFileUrl(new URL("../test_data", import.meta.url));
 
-const update = Deno.args.includes("--update");
-
-const test_root = new URL("../test_data", import.meta.url);
-
-for await (const entry of walk(test_root, {
-	includeDirs: false,
-	exts: ["yaml"],
+for await (const { path: spec_path } of expandGlob("**/*.yaml", {
+	root: specs_root,
 })) {
-	if (entry.name.startsWith(".")) {
+	const relativePath = relative(specs_root, spec_path);
+	if (relativePath.startsWith(".")) {
+		Deno.test({ name: relativePath, ignore: true, fn: () => {} });
 		continue;
 	}
 
-	const input = Deno.readTextFileSync(entry.path);
+	const fileText = await Deno.readTextFile(spec_path);
+	const expected = await Deno.readTextFile(spec_path + ".snap");
 
-	if (update) {
-		const actual = format(input, entry.path);
-		Deno.writeTextFileSync(entry.path + ".snap", actual);
-	} else {
-		const test_name = relative(test_root.pathname, entry.path);
-		const expected = Deno.readTextFileSync(entry.path + ".snap");
-
-		Deno.test(test_name, () => {
-            const actual = format(input, entry.path);
-			assertEquals(actual, expected);
-		});
-	}
+	Deno.test(relativePath, () => {
+		const actual = format(fileText);
+		assertEquals(actual, expected);
+	});
 }

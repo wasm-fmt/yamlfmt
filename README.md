@@ -16,44 +16,62 @@ npx jsr add @fmt/yamlfmt
 
 # Usage
 
+## Node.js / Deno / Bun / Bundler
+
 ```javascript
-import init, { format } from "@wasm-fmt/yamlfmt";
+import { format } from "@wasm-fmt/yamlfmt";
 
-await init();
+const input = `- a
+- b
+`;
 
-const input = "- a\n- b\n";
-
-const formatted = format(input, "sample.yaml");
+const formatted = format(input);
 console.log(formatted);
 ```
 
-For Vite users:
+## Node.js < 22.19
 
-Add `"@wasm-fmt/yamlfmt"` to `optimizeDeps.exclude` in your vite config:
-
-```JSON
-{
-    "optimizeDeps": {
-        "exclude": ["@wasm-fmt/yamlfmt"]
-    }
-}
+```JavaScript
+import { format } from "@wasm-fmt/yamlfmt/node";
 ```
 
-<details>
-<summary>
-If you cannot change the vite config, you can use another import entry
+## Web
 
-</summary>
+For web environments, you need to initialize WASM module manually:
+
+```javascript
+import init, { format } from "@wasm-fmt/yamlfmt/web";
+
+await init();
+
+const input = `- a
+- b
+`;
+
+const formatted = format(input);
+console.log(formatted);
+```
+
+### Vite
 
 ```JavaScript
 import init, { format } from "@wasm-fmt/yamlfmt/vite";
 
+await init();
 // ...
 ```
 
-</details>
+## Entry Points
+
+- `.` - Auto-detects environment (Node.js uses node, Webpack uses bundler, default is ESM)
+- `./node` - Node.js environment (no init required)
+- `./esm` - ESM environments like Deno (no init required)
+- `./bundler` - Bundlers like Webpack (no init required)
+- `./web` - Web browsers (requires manual init)
+- `./vite` - Vite bundler (requires manual init)
 
 # Credits
 
-Thanks to: 
-- [pretty_yaml](https://github.com/g-plane/pretty_yaml)
+Thanks to:
+
+- The [pretty_yaml](https://github.com/g-plane/pretty_yaml) project

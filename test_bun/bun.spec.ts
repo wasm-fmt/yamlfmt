@@ -1,27 +1,27 @@
+#!/usr/bin/env bun test
 import { Glob } from "bun";
 import { expect, test } from "bun:test";
 import path from "node:path";
-import init, { format } from "../pkg/yamlfmt";
+import { fileURLToPath } from "node:url";
+
+import init, { format } from "../pkg/yamlfmt_web.js";
 
 await init();
 
-const test_root = Bun.fileURLToPath(new URL("../test_data", import.meta.url));
-const glob = new Glob("**/*.yaml");
+const specs_root = fileURLToPath(new URL("../test_data", import.meta.url));
 
-for await (const input_path of glob.scan(test_root)) {
-	if (path.basename(input_path).startsWith(".")) {
+for await (const spec_path of new Glob("**/*.yaml").scan({ cwd: specs_root })) {
+	if (spec_path.startsWith(".")) {
+		test.skip(spec_path, () => {});
 		continue;
 	}
 
-	const full_path = path.join(test_root, input_path);
+	const full_path = path.join(specs_root, spec_path);
 
-	const [input, expected] = await Promise.all([
-		Bun.file(full_path).text(),
-		Bun.file(full_path + ".snap").text(),
-	]);
+	const [input, expected] = await Promise.all([Bun.file(full_path).text(), Bun.file(full_path + ".snap").text()]);
 
-	test(input_path, () => {
-		const actual = format(input, input_path);
+	test(spec_path, () => {
+		const actual = format(input);
 		expect(actual).toBe(expected);
 	});
 }
