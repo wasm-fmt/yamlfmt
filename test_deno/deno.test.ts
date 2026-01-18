@@ -6,7 +6,7 @@ import { basename, dirname, fromFileUrl, join, relative } from "jsr:@std/path";
 import { format } from "../pkg/yamlfmt_esm.js";
 import { parseConfigToml, stripInstaSnapshotHeader } from "../test_utils/fmt_utils.mjs";
 
-const specs_root = fromFileUrl(new URL("../tests/fmt", import.meta.url));
+const specs_root = fromFileUrl(import.meta.resolve("../tests/fmt"));
 
 for await (const { path: spec_path } of expandGlob("**/*.yaml", {
 	root: specs_root,

@@ -9,7 +9,7 @@ import { parseConfigToml, stripInstaSnapshotHeader } from "../test_utils/fmt_uti
 
 await init();
 
-const specs_root = fileURLToPath(new URL("../tests/fmt", import.meta.url));
+const specs_root = fileURLToPath(import.meta.resolve("../tests/fmt"));
 
 for await (const spec_path of new Glob("**/*.yaml").scan({ cwd: specs_root })) {
 	if (spec_path.startsWith(".")) {

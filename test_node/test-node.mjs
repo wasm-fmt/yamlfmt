@@ -8,16 +8,7 @@ import { fileURLToPath } from "node:url";
 import { format } from "../pkg/yamlfmt_node.js";
 import { parseConfigToml, stripInstaSnapshotHeader } from "../test_utils/fmt_utils.mjs";
 
-const specs_root = fileURLToPath(new URL("../tests/fmt", import.meta.url));
-
-async function readOptionalText(filePath) {
-	try {
-		return await readFile(filePath, "utf-8");
-	} catch (err) {
-		if (err && typeof err === "object" && err.code === "ENOENT") return null;
-		throw err;
-	}
-}
+const specs_root = fileURLToPath(import.meta.resolve("../tests/fmt"));
 
 for await (const spec_path of glob("**/*.yaml", { cwd: specs_root })) {
 	if (spec_path.startsWith(".")) {
