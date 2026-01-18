@@ -1,0 +1,62 @@
+{
+	"name": "@wasm-fmt/yamlfmt",
+	"type": "module",
+	"collaborators": [
+		"magic-akari <akari.ccino@gmail.com>"
+	],
+	"description": "A WASM Based YAML Formatter",
+	"version": "0.2.0",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/wasm-fmt/yamlfmt.git"
+	},
+	"homepage": "https://github.com/wasm-fmt/yamlfmt",
+	"sideEffects": [
+		"./yamlfmt.js",
+		"./yamlfmt_node.js",
+		"./yamlfmt_esm.js"
+	],
+	"keywords": [
+		"wasm",
+		"yaml",
+		"formatter"
+	],
+	"exports": {
+		".": {
+			"types": "./yamlfmt.d.ts",
+			"webpack": "./yamlfmt.js",
+			"deno": "./yamlfmt.js",
+			"bun": "./yamlfmt_node.js",
+			"module-sync": "./yamlfmt_node.js",
+			"node": "./yamlfmt_node.js",
+			"default": "./yamlfmt_esm.js"
+		},
+		"./esm": {
+			"types": "./yamlfmt.d.ts",
+			"default": "./yamlfmt_esm.js"
+		},
+		"./node": {
+			"types": "./yamlfmt.d.ts",
+			"default": "./yamlfmt_node.js"
+		},
+		"./bundler": {
+			"types": "./yamlfmt.d.ts",
+			"default": "./yamlfmt.js"
+		},
+		"./web": {
+			"types": "./yamlfmt_web.d.ts",
+			"default": "./yamlfmt_web.js"
+		},
+		"./vite": {
+			"types": "./yamlfmt_web.d.ts",
+			"default": "./yamlfmt_vite.js"
+		},
+		"./wasm": "./yamlfmt_bg.wasm",
+		"./package.json": "./package.json",
+		"./*": "./*"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

@@ -29,12 +29,6 @@ const formatted = format(input);
 console.log(formatted);
 ```
 
-## Node.js < 22.19
-
-```JavaScript
-import { format } from "@wasm-fmt/yamlfmt/node";
-```
-
 ## Web
 
 For web environments, you need to initialize WASM module manually:

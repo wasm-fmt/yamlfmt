@@ -1,0 +1,22 @@
+{
+	"$schema": "https://jsr.io/schema/config-file.v1.json",
+	"name": "@fmt/yamlfmt",
+	"version": "0.2.0",
+	"exports": {
+		".": "./yamlfmt.js",
+		"./esm": "./yamlfmt_esm.js",
+		"./node": "./yamlfmt_node.js",
+		"./bundler": "./yamlfmt.js",
+		"./web": "./yamlfmt_web.js"
+	},
+	"publish": {
+		"include": [
+			"yamlfmt_*",
+			"yamlfmt.*",
+			"README.md"
+		],
+		"exclude": [
+			"!*"
+		]
+	}
+}
