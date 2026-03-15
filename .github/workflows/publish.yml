@@ -105,7 +105,7 @@ jobs:
               working-directory: pkg
               run: npm pack
             - name: Release
-              uses: softprops/action-gh-release@69320dbe05506a9a39fc8ae11030b214ec2d1f87
+              uses: softprops/action-gh-release@11f917660b31d6d56980ea3261f210556a812bd0
               with:
                   files: |
                       pkg/*.tgz
