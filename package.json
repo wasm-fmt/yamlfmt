@@ -6,7 +6,7 @@
 	],
 	"description": "A WASM Based YAML Formatter",
 	"version": "0.2.1",
-	"license": "MIT",
+	"license": "MIT OR Apache-2.0",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/wasm-fmt/yamlfmt.git"
@@ -22,6 +22,15 @@
 		"yaml",
 		"formatter"
 	],
+	"dependencies": {
+		"@wasm-fmt/runtime": "0.0.1"
+	},
+	"devDependencies": {
+		"@wasm-fmt/bindgen": "0.0.1"
+	},
+	"scripts": {
+		"build:bindings": "wasm-fmt-bindgen"
+	},
 	"exports": {
 		".": {
 			"types": "./yamlfmt.d.ts",
@@ -49,7 +58,7 @@
 			"default": "./yamlfmt_web.js"
 		},
 		"./vite": {
-			"types": "./yamlfmt_web.d.ts",
+			"types": "./yamlfmt_vite.d.ts",
 			"default": "./yamlfmt_vite.js"
 		},
 		"./wasm": "./yamlfmt_bg.wasm",
@@ -58,5 +67,9 @@
 	},
 	"publishConfig": {
 		"access": "public"
+	},
+	"author": "magic-akari <akari.ccino@gmail.com>",
+	"bugs": {
+		"url": "https://github.com/wasm-fmt/yamlfmt/issues"
 	}
 }

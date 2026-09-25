@@ -28,7 +28,7 @@ for await (const { path: spec_path } of expandGlob("**/*.yaml", {
 				optionName,
 				config,
 			}))
-		: [{ optionName: null, config: null }];
+		: [{ optionName: null, config: undefined }];
 
 	for (const { optionName, config } of cases) {
 		const snapshotSuffix = optionName ? `.${optionName}` : "";

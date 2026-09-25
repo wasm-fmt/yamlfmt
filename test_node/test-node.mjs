@@ -5,7 +5,7 @@ import path from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
 
-import { format } from "../pkg/yamlfmt_node.js";
+import { createConfig, format, releaseConfig } from "../pkg/yamlfmt_node.js";
 import { parseConfigToml, stripInstaSnapshotHeader } from "../test_utils/fmt_utils.mjs";
 
 const specs_root = fileURLToPath(import.meta.resolve("../tests/fmt"));
@@ -30,7 +30,7 @@ for await (const spec_path of glob("**/*.yaml", { cwd: specs_root })) {
 				optionName,
 				config,
 			}))
-		: [{ optionName: null, config: null }];
+		: [{ optionName: null, config: undefined }];
 
 	for (const { optionName, config } of cases) {
 		const snapshotSuffix = optionName ? `.${optionName}` : "";
@@ -52,3 +52,27 @@ for await (const spec_path of glob("**/*.yaml", { cwd: specs_root })) {
 		});
 	}
 }
+
+test("inline and registered config", () => {
+	const input = "root:\n - first\n - second\n";
+	const config = { indent_width: 4 };
+	const expected = format(input, config);
+	const handle = createConfig(config);
+
+	assert.equal(format(input, "document.yaml", config), expected);
+	try {
+		assert.equal(format(input, handle), expected);
+	} finally {
+		releaseConfig(handle);
+	}
+
+	assert.throws(() => format(input, handle), /unknown or released config handle/);
+});
+
+test("null is an explicit config value", () => {
+	assert.throws(() => format("key: value", null));
+});
+
+test("invalid JSON config is rejected during registration", () => {
+	assert.throws(() => createConfig("{"), /EOF while parsing an object/);
+});

@@ -1,22 +1,33 @@
-use pretty_yaml::config;
+use pretty_yaml::config::{self, FormatOptions};
 use serde::Deserialize;
-use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen(typescript_custom_section)]
-const TS_Config: &'static str = r#"
-interface LayoutConfig {
-	indent_width?: number;
-	line_width?: number;
-	line_ending?: "lf" | "crlf";
+#[bridge::config]
+#[derive(Clone, Default)]
+pub struct YamlConfig {
+    options: FormatOptions,
 }
 
-/** Configuration for the YAML formatter */
-export interface Config extends LayoutConfig {
-	/**
-	 *  See {@link https://github.com/g-plane/pretty_yaml/blob/main/docs/config.md}
-	 */
-	[other: string]: any;
-}"#;
+impl bridge::Config for YamlConfig {
+    fn decode(bytes: &[u8]) -> Result<Self, String> {
+        if bytes.is_empty() {
+            return Ok(Self::default());
+        }
+
+        let mut options =
+            serde_json::from_slice::<FormatOptions>(bytes).map_err(|err| err.to_string())?;
+        let layout =
+            serde_json::from_slice::<LayoutConfig>(bytes).map_err(|err| err.to_string())?;
+        options.layout = layout.into();
+
+        Ok(Self { options })
+    }
+}
+
+impl YamlConfig {
+    pub fn options(&self) -> &FormatOptions {
+        &self.options
+    }
+}
 
 #[derive(Deserialize, Clone, Default)]
 pub struct LayoutConfig {
